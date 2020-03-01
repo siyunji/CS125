@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Questionaire
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+
+<ion-content padding>
+
+  <ion-list *ngFor = "let item of questions">
+    <ion-radio-group>
+      <ion-list-header>
+        <ion-label>{{item.question}}</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor = "let an of item.answer" >
+        <ion-label>{{an}}</ion-label>
+        <ion-radio slot="end" ></ion-radio>
+      </ion-item>
+      </ion-radio-group>
+    
+  </ion-list>
+
+  <ion-button shape="round">Submit</ion-button>
+      
+</ion-content>

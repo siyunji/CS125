@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'homepage', pathMatch: 'full' },
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    path: 'homepage',
+    loadChildren: () => import('./homepage/homepage.module').then( m => m.HomepagePageModule)
+  },
+  {
+    path: 'personal-info',
+    loadChildren: () => import('./personal-info/personal-info.module').then( m => m.PersonalInfoPageModule)
   }
 ];
 @NgModule({
