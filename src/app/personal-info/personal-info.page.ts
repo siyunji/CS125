@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../data/question';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-personal-info',
@@ -8,37 +9,34 @@ import { Question } from '../data/question';
 })
 export class PersonalInfoPage implements OnInit {
   public questions: Question[] = [];
-  constructor() {
+  constructor(private router: Router) {
     this.questions = [
       {
-        question: 'what is your height?',
+        question: 'Height:',
         answer: []
       },
 
       {
-        question: 'What is your weight',
+        question: 'Weight:',
         answer: []
       },
 
       {
-        question: 'What is your age?',
+        question: 'Age:',
         answer: []
       },
-
       {
-        question: 'How much experience do you have?',
-        answer: []
-      },
-
-      {
-        question: '',
+        question: 'Gender:',
         answer: []
       }
+
     ];
    }
 
   ngOnInit() {
   }
-  
+  jumptoHome(){
+    this.router.navigate(['tabs']);
+  }
 
 }
