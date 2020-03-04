@@ -3,16 +3,37 @@
 <ion-content color = primary>
   
   <h1>Personal Infomation</h1>
-  
-  <ion-item color= primary *ngFor = "let item of questions">
-    <ion-label position = "fixed" >{{item.question}}</ion-label>
-    
-    <ion-input required = "true"></ion-input>
-  
-  </ion-item>
-  
+  <br><br>
+  <ion-list>                                                            
+    <ion-item color ="primary">
+      <ion-label  position = "fixed" color="secondary" >Height(cm):</ion-label>
+      <ion-input color="secondary" [(ngModel)]= "h" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item color ="primary">
+      <ion-label color="secondary" position = "fixed" >Weight(km):</ion-label>
+      <ion-input color="secondary" [(ngModel)]= "w" type="number"></ion-input>
+    </ion-item>
+      
+    <ion-item color ="primary">
+      <ion-label color="secondary" position = "fixed" >Age:</ion-label>
+      <ion-input color="secondary" [(ngModel)]= "a" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item color ="primary">
+      <ion-label color="secondary" position = "fixed">Gender:</ion-label>
+      <ion-input color="secondary" [(ngModel)]= "g" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item color ="primary">
+      <ion-label color="secondary" position = "fixed">Experience: </ion-label>
+      <ion-input color="secondary" [(ngModel)]= "e" type="number"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button  shape="round" color = "secondary" (click) = "jumptoHome()">Save</ion-button>
+
+
   
  
- 
-  <ion-button shape="round" color = secondary (click) = "jumptoHome()">Submit</ion-button>
 </ion-content>
