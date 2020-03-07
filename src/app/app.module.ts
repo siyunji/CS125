@@ -20,7 +20,8 @@ import { IonicStorageModule } from '@ionic/storage';
     IonicModule.forRoot(), 
     AppRoutingModule, 
     IonicStorageModule.forRoot(),
-    HttpClientModule],
+    HttpClientModule,
+  ],
   providers: [
     StatusBar,
     SplashScreen,

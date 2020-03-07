@@ -6,7 +6,7 @@ export class LocationReader {
 
   public async getLocation(callback: Function) {
     let options = {
-      timeout: 1000
+      timeout: 3000
     };
     let self = this;
     this.geoLocation

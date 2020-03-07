@@ -1,6 +1,6 @@
 // ../../assets/json/exercise_db.json
 
-declare module "../../assets/json/exercise_db.json";
+//declare module "../../assets/json/exercise_db.json";
 import * as exercise_db from "../../assets/json/exercise_db.json";
 
 export class ExerciseDB {
