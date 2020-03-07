@@ -1,41 +1,48 @@
-// export class Exercise {
-//   static LEVEL_BEGINNER = 1;
-//   static LEVEL_INTERMEDIATE = 2;
-//   static LEVEL_ADVANCED = 4;
-//   static GOAL_GAIN_MUSULE = 8;
-//   static GOAL_LOSE_WEIGHT = 16;
-//   private _name: string;
-//   private _tags: number;
-//   private _calPerMin: number;
-//   public constructor(name: string, tags: number, calPerMin: number) {
-//     this._name = name;
-//     this._tags = tags;
-//     this._calPerMin = calPerMin;
-//   }
-//   public hasTag(tag: number): boolean {
-//     // tslint:disable-next-line: no-bitwise
-//     return (this._tags & tag) !== 0;
-//   }
-//     return this._name;
-//   }
-//   public get calPerMin() {
-//     return this._calPerMin;
-//   }
-// }
+export class Exercise {
+  private _name: string;
+  private _difficulty: string;
+  private _type: string;
+  private _equipment: [string];
+  private _preferenceWeight: number;
 
- // }
-//}
- // public get name() {
- //   return this._name;
- // }
-  //public get calPerMin() {
-   // return this._calPerMin;
- // }
-//}
-  //public get name() {
-    //return this._name;
-  //}
-  //public get calPerMin() {
-    //return this._calPerMin;
-  //}
-//}
+  public constructor(
+    name: string,
+    difficulty: string,
+    type: string,
+    equipment: [string]
+  ) {
+    this._name = name;
+    this._difficulty = difficulty;
+    this._type = type;
+    this._equipment = equipment;
+    this._preferenceWeight = 0;
+  }
+
+  public get name() {
+      return this._name;
+  }
+
+  public get difficulty() {
+      return this._difficulty;
+  }
+
+  public get type() {
+      return this._type;
+  }
+
+  public get equipment() {
+      return this._equipment;
+  }
+
+  public get preferenceWeight() {
+      return this._preferenceWeight;
+  }
+
+  public addPreferenceWeight() {
+      this._preferenceWeight += 1;
+  }
+
+  public subPreferenceWeight() {
+      this._preferenceWeight -= 0.25;
+  }
+}

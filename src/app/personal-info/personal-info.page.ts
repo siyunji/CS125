@@ -13,47 +13,52 @@ import { Injectable } from "@angular/core";
   templateUrl: "./personal-info.page.html",
   styleUrls: ["./personal-info.page.scss"]
 })
+@Injectable({
+  providedIn: "root"
+})
 
 export class PersonalInfoPage implements OnInit {
   public questions: Question[] = [];
-
   h: any;
   w: any;
   a: any;
   g: any;
   e: any;
-  // navigtionExtras: NavigationExtras;
+
   constructor(
-    public global: GlobalService,
     private router: Router,
     public navCtrl: NavController,
-    public modalController: ModalController
+    private globalDB: Storage,
+    public modalController: ModalController,
+    public global: GlobalService
   ) {
-    
- 
+    // if not first time, jump to home
+    globalDB.get("first_time_use").then(x => {
+      if (x === false) {
+        this.jumptoHome();
+      }
+    });
+    globalDB.set("first_time_use", false);
+
+    new Database(globalDB).init();
   }
 
   ngOnInit() {}
 
+  public submitBtnOnClick() {
+    // TODO: load personal info to db
+    this.jumptoHome();
+  }
+
   jumptoHome() {
-    console.log(this.h);
     this.global.height = this.h;
     this.global.weight = this.w;
     this.global.age = this.a;
     this.global.gender = this.g;
     this.global.experience = this.e;
-
     this.navCtrl.navigateForward([
       "tabs",
-      {
-        //height: this.h,
-        weight: this.w,
-        age: this.a,
-        gender: this.g,
-        experience: this.e
-      }
+     
     ]);
-    // this.navigtionExtras ={state: {height: this.h}};
-    // this.router.navigate(['tab3',this.navigtionExtras]);
   }
 }
