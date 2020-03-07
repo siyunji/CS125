@@ -7,6 +7,8 @@ import { Router, NavigationExtras } from "@angular/router";
 import { NavController } from "@ionic/angular";
 import { ModalController } from "@ionic/angular";
 import { Injectable } from "@angular/core";
+import { Database } from "../data/database";
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: "app-personal-info",
@@ -16,7 +18,6 @@ import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: "root"
 })
-
 export class PersonalInfoPage implements OnInit {
   public questions: Question[] = [];
   h: any;
@@ -56,9 +57,6 @@ export class PersonalInfoPage implements OnInit {
     this.global.age = this.a;
     this.global.gender = this.g;
     this.global.experience = this.e;
-    this.navCtrl.navigateForward([
-      "tabs",
-     
-    ]);
+    this.navCtrl.navigateForward(["tabs"]);
   }
 }
