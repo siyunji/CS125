@@ -2,36 +2,47 @@
 
 <ion-content color = primary>
   
-  <h1>Personal Infomation</h1>
+  <h1>Personal Information</h1>
   <br><br>
   <ion-list>                                                            
     <ion-item color ="primary">
-      <ion-label  position = "fixed" color="secondary" >Height(cm):</ion-label>
-      <ion-input color="secondary" [(ngModel)]= "h" type="number"></ion-input>
+      <ion-label  position = "fixed" color="secondary" >Height(cm):   </ion-label>
+      <ion-input slot = "end"  color="secondary" [(ngModel)]= "h" type="number"></ion-input>
     </ion-item>
 
     <ion-item color ="primary">
-      <ion-label color="secondary" position = "fixed" >Weight(km):</ion-label>
-      <ion-input color="secondary" [(ngModel)]= "w" type="number"></ion-input>
+      <ion-label color="secondary" position = "fixed" >Weight(kg):</ion-label>
+      <ion-input  slot = "end" color="secondary" [(ngModel)]= "w" type="number"></ion-input>
     </ion-item>
       
     <ion-item color ="primary">
       <ion-label color="secondary" position = "fixed" >Age:</ion-label>
-      <ion-input color="secondary" [(ngModel)]= "a" type="number"></ion-input>
+      <ion-input slot = "end"  color="secondary" [(ngModel)]= "a" type="number"></ion-input>
     </ion-item>
 
-    <ion-item color ="primary">
-      <ion-label color="secondary" position = "fixed">Gender:</ion-label>
-      <ion-input color="secondary" [(ngModel)]= "g" type="number"></ion-input>
-    </ion-item>
+  
 
     <ion-item color ="primary">
-      <ion-label color="secondary" position = "fixed">Experience: </ion-label>
-      <ion-input color="secondary" [(ngModel)]= "e" type="number"></ion-input>
+      <ion-label color="secondary" position = "inline">Experience(Year):  </ion-label> 
+      <ion-input slot = "end" color="secondary" [(ngModel)]= "e" type="number"></ion-input>
+    </ion-item>
+
+ 
+
+    <ion-item color ="primary">
+      <ion-label>Gender: </ion-label>
+      <ion-select slot = "end" interface="popover"[(ngModel)]= "g" >
+        <ion-select-option value="Female">Female</ion-select-option>
+        <ion-select-option value="Male">Male</ion-select-option>
+        <ion-select-option value="other">Other</ion-select-option>
+        <ion-select-option value="notsay">Prefer not to say</ion-select-option>
+       
+        
+      </ion-select>
     </ion-item>
   </ion-list>
 
-  <ion-button  shape="round" color = "secondary" (click) = "jumptoHome()">Save</ion-button>
+  <ion-button shape="round" color = "secondary" (click) = "jumptoHome()">Save</ion-button>
 
 
   

@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { GlobalService } from './global.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    GlobalService
   ],
   bootstrap: [AppComponent]
 })

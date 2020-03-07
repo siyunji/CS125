@@ -3,25 +3,24 @@
     <ion-title>
       Questionaire
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content padding color = "primary">
-
-  <ion-list *ngFor = "let item of questions" color = "secondary">
+  <ion-list  *ngFor = "let item of questions" color = "secondary">
     <ion-radio-group color = "secondary">
-      <ion-list-header color = "tertiary">
-        <ion-label color = "secondary">{{item.question}}</ion-label>
+      <ion-list-header color = "secondary">
+        <ion-label color = "success">{{item.question}}</ion-label>
       </ion-list-header>
-      <ion-item color = "tertiary" *ngFor = "let an of item.answer" >
+      <ion-item color = "success" *ngFor = "let an of item.answer" >
         <ion-label>{{an}}</ion-label>
-        <ion-radio slot="end" ></ion-radio>
+        <ion-radio slot="end" color ="secondary"></ion-radio>
       </ion-item>
       </ion-radio-group>
-    
   </ion-list>
-
-  <ion-button shape="round" color = "secondary">Submit</ion-button>
-      
+  <ion-button shape="round" color = "secondary" (click) = "recommedation()" > Submit</ion-button>
+    
 </ion-content>

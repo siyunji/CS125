@@ -1,28 +1,55 @@
-
-<ion-header >
-  <ion-toolbar color = "tertiary">
-   
+<ion-header>
+  <ion-toolbar color="tertiary">
     <ion-title>
-      Welcome
+      Welcome UCIFitness
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color = "primary">
-  <ion-card color = "tertiary">
-    <ion-card-header >
-      
-      <ion-card-subtitle > Your best fitness advisor</ion-card-subtitle>
-      <ion-card-title style ="color: #874903"> UCIFitness</ion-card-title>
-      
+<ion-content color="primary">
+  <ion-card color="tertiary">
+    <ion-card-header>
+      <ion-card-title style="color: #874903"> Instruction </ion-card-title>
     </ion-card-header>
-  
+
     <ion-card-content>
       <p><strong>First Step:</strong> Fill the questionaire</p>
+      <br />
       <p><strong>Second Step:</strong> Get the recommedation</p>
-      <p><strong>Third Step:</strong> provide feedback </p>
+      <br />
+      <p><strong>Third Step:</strong> Provide feedback</p>
     </ion-card-content>
   </ion-card>
-  
 
+  <ion-card color="secondary">
+    <ion-card-header>
+      <ion-card-title style="color:#dff5da"> Daily Reminder: </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><strong> 8:00 - 9:00 </strong> &nbsp;&nbsp; Running</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card color="tertiary">
+    <ion-card-header>
+      <ion-card-title style="color: #874903">
+        Your BMI Number: {{bmi}} 
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content> {{bmiResult }}</ion-card-content>
+  </ion-card>
+
+  <ion-item class="ion-text-center" color="primary" lines="none">
+    <ion-button
+      size="large"
+      style="margin:auto; margin-top: 20xp; margin-bottom: 20px;"
+      color="secondary"
+      shape="round"
+      
+      fill ="outline"
+      (click)="start()"
+      >Start</ion-button
+    >
+  </ion-item>
 </ion-content>

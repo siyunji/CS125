@@ -1,6 +1,7 @@
-.button{
+ion-button{
     text-align: center;
-    margin-top: 30px;
+    margin-top: 150px;
+    
  
 }
 
@@ -13,4 +14,9 @@ ion-img{
 ion-content{
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ion-title{
+    margin-top: 80px;
+    size: 150px;
 }
