@@ -7,6 +7,8 @@ import { Router, NavigationExtras } from "@angular/router";
 import { NavController } from "@ionic/angular";
 import { ModalController } from "@ionic/angular";
 import { Injectable } from "@angular/core";
+import { Storage } from "@ionic/storage";
+import { Database } from "../data/database";
 
 @Component({
   selector: "app-personal-info",
@@ -16,7 +18,6 @@ import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: "root"
 })
-
 export class PersonalInfoPage implements OnInit {
   public questions: Question[] = [];
   h: any;
@@ -33,6 +34,7 @@ export class PersonalInfoPage implements OnInit {
     public global: GlobalService
   ) {
     // if not first time, jump to home
+    /*
     globalDB.get("first_time_use").then(x => {
       if (x === false) {
         this.jumptoHome();
@@ -41,6 +43,7 @@ export class PersonalInfoPage implements OnInit {
     globalDB.set("first_time_use", false);
 
     new Database(globalDB).init();
+    */
   }
 
   ngOnInit() {}
@@ -56,9 +59,6 @@ export class PersonalInfoPage implements OnInit {
     this.global.age = this.a;
     this.global.gender = this.g;
     this.global.experience = this.e;
-    this.navCtrl.navigateForward([
-      "tabs",
-     
-    ]);
+    this.navCtrl.navigateForward(["tabs"]);
   }
 }

@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'feedback',
     loadChildren: () => import('./feedback/feedback.module').then( m => m.FeedbackPageModule)
+  },
+  {
+    path: 'food-select',
+    loadChildren: () => import('./food-select/food-select.module').then( m => m.FoodSelectPageModule)
   }
 ];
 

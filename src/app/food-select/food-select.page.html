@@ -1,0 +1,29 @@
+<ion-header >
+  <ion-toolbar color = "secondary">
+    <ion-title>Recommedation</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding color = "primary">
+
+  <ion-list color = "secondary">
+    <ion-radio-group color = "secondary">
+      <ion-list-header color = "secondary">
+        <ion-label color = "success">Select one exercise you like best</ion-label>
+      </ion-list-header>
+      <ion-item color = "success" *ngFor = "let e of exercise" >
+        <ion-label>{{e}}</ion-label>
+        <ion-radio slot="end" color ="secondary" ></ion-radio>
+      </ion-item>
+      </ion-radio-group>
+  </ion-list>
+
+  <ion-button shape="round" color = "secondary" style="margin: auto;" (click)="getFeedback()" > Submit</ion-button>
+
+
+</ion-content>
+

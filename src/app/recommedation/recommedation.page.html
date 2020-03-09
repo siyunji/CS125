@@ -1,5 +1,5 @@
-<ion-header >
-  <ion-toolbar color = "secondary">
+<ion-header>
+  <ion-toolbar color="secondary">
     <ion-title>Recommedation</ion-title>
     <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
@@ -7,36 +7,25 @@
   </ion-toolbar>
 </ion-header>
 
-
-<ion-content padding color = "primary">
-
-  <ion-list color = "secondary">
-    <ion-radio-group color = "secondary">
-      <ion-list-header color = "secondary">
-        <ion-label color = "success">Select one food you like best</ion-label>
+<ion-content padding color="primary">
+  <ion-list color="secondary"  >
+    <ion-radio-group color="secondary" [(ngModel)] = "selection">
+      <ion-list-header color="secondary">
+        <ion-label color="success">Select one food you like best</ion-label>
       </ion-list-header>
-      <ion-item color = "success" *ngFor = "let item of food" >
+      <ion-item color="success" *ngFor="let item of food">
         <ion-label>{{item}}</ion-label>
-        <ion-radio slot="end" color ="secondary" ></ion-radio>
+        <ion-radio value = {{item}} slot="end" color="secondary"></ion-radio>
       </ion-item>
-      </ion-radio-group>
-
-     
+    </ion-radio-group>
   </ion-list>
 
-  <ion-list color = "secondary">
-    <ion-radio-group color = "secondary">
-      <ion-list-header color = "secondary">
-        <ion-label color = "success">Select one exercise you like best</ion-label>
-      </ion-list-header>
-      <ion-item color = "success" *ngFor = "let e of exercise" >
-        <ion-label>{{e}}</ion-label>
-        <ion-radio slot="end" color ="secondary" ></ion-radio>
-      </ion-item>
-      </ion-radio-group>
-  </ion-list>
-
-  <ion-button shape="round" color = "secondary" style="margin: auto;" (click)="getFeedback()" > Submit</ion-button>
-
-
+  <ion-button
+    shape="round"
+    color="secondary"
+    style="margin: auto;"
+    (click)="foodSelect()"
+  >
+    Submit</ion-button
+  >
 </ion-content>
