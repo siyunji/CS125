@@ -5,9 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 import { NavController } from "@ionic/angular";
 import { GlobalService } from "./../global.service";
-import { PedometerReader } from "../data/pedometer";
 import { Pedometer } from "@ionic-native/pedometer/ngx";
-import { gzipSync } from "zlib";
 
 @Component({
   selector: "app-tab1",

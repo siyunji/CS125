@@ -8,17 +8,19 @@ import { NavController } from '@ionic/angular';
 })
 export class RecommedationPage implements OnInit {
   food = [];
-  exercise = [];
+  selection: any;
+ // exercise = [];
   constructor(public navCtrl: NavController) { 
     this.food = ["chicken", "salad","fish"];
-    this.exercise = ["running", "jogging","swimming","jumping"];
+    
   }
 
   ngOnInit() {
   }
 
-  getFeedback(){
-    this.navCtrl.navigateForward(['feedback']);
+  foodSelect(){
+    this.navCtrl.navigateForward(['food-select']);
+    console.log(this.selection);
   }
 
 }
