@@ -39,7 +39,6 @@ export class PersonalInfoPage implements OnInit {
         this.jumptoHome();
       }
     });
-    globalDB.set("first_time_use", false);
 
     new Database(globalDB).init();
   }
@@ -57,6 +56,7 @@ export class PersonalInfoPage implements OnInit {
     this.global.age = this.a;
     this.global.gender = this.g;
     this.global.experience = this.e;
+    this.globalDB.set("first_time_use", false);
     this.navCtrl.navigateForward(["tabs"]);
   }
 }

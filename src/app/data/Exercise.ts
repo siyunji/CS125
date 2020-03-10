@@ -9,7 +9,7 @@ export class Exercise {
     name: string,
     difficulty: string,
     type: string,
-    equipment: [string]
+    equipment: [string],    
   ) {
     this._name = name;
     this._difficulty = difficulty;

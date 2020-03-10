@@ -10,14 +10,12 @@ export class DirectionReader {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getDirection(lat: number, lon: number, fitnessAddr: string) {
-    this.httpClient
+  public async getDistance(lat: number, lon: number, fitnessAddr: string) {
+    const data = await this.httpClient
       .get(
         `${this._url}?key=${this._apikey}&json={"locations":["${lat},${lon}",${fitnessAddr}]}`
       )
-      .subscribe(data => {
-        console.log("directions");
-        console.log(data["route"]["distance"]);
-      });
+      .toPromise();
+      return data["route"]["distance"];
   }
 }

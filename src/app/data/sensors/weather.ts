@@ -11,14 +11,12 @@ export class WeatherReader {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getWeather() {
-    this.httpClient
+  public async getWeather(): Promise<string> {
+    const data = await this.httpClient
       .get(
         `${this._url}/${this._locationKey}?apikey=${this._apikey}&details=true`
       )
-      .subscribe(data => {
-        console.log("weather");
-        console.log(data[0]["WeatherText"]);
-      });
+      .toPromise();
+    return data[0]["WeatherText"];
   }
 }
