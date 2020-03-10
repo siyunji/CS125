@@ -1,65 +1,97 @@
-import { Component, Input } from '@angular/core';
-import { Question } from '../data/question';
-import { Router } from '@angular/router';
-import { NavController, NavParams } from '@ionic/angular';
-import { timer } from 'rxjs';
+import { Component, Input, Injectable } from "@angular/core";
+import { Question } from "../data/question";
+import { Router } from "@angular/router";
+import { Recommendation, Goal } from "../data/recommendation";
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  selector: "app-tab2",
+  templateUrl: "tab2.page.html",
+  styleUrls: ["tab2.page.scss"]
 })
-
+@Injectable({
+  providedIn: "root"
+})
 export class Tab2Page {
   public questions: Question[] = [];
   //hh:any;
-  //@Input() h:string; 
-  selection:any;
+  //@Input() h:string;
+  selection: any;
   select_list = [];
-  constructor(private router: Router, public navCtrl: NavController) {
-    //this.hh = NavParams.get('h');
+  private questionMap: Object;
+
+  constructor(private router: Router, private recommendation: Recommendation) {
+    this.questionMap = new Object();
+    
     this.questions = [
       {
-        question: 'During which time do you want to exercise?',
-        answer: ['Morning', 'Noon', 'Night'],
-        key: 'time',
-      },
-
-      {
-        question: 'Do you want to gain muscle or lose weight?',
-        answer: ['Gain muscle', 'Lose weight'],
-        key: 'muscle',
-      },
-
-      {
-        question: 'How long do you want to exercise?',
-        answer: ['30 mins', '1 hour', '1.5 hours', '2 hours'],
-        key: 'muscle',
+        question: "During which time do you want to exercise?",
+        answer: { Morning: null, Noon: null, Night: null },
+        key: "exercisePeriod"
       },
       {
-        question: 'How much experience do you have?',
-        answer: ['Beginner', 'Intermediate', 'Advanced'],
-        key: 'muscle'
+        question: "Do you want to gain muscle or lose weight?",
+        answer: {
+          "Gain muscle": Goal.GainMuscle,
+          "Lose weight": Goal.LoseWeight
+        },
+        key: "exerciseType"
       },
       {
-        question: 'How many times do you currently do exercise?',
-        answer: ['Never', '1-2 times a week', '3-4 times a week', '5+ times a week'],
-        key: 'muscle',
+        question: "How long do you want to exercise?",
+        answer: { "30 mins": 1, "1 hour": 2, "1.5 hours": 3, "2 hours": 4 },
+        key: "exerciseTime"
+      },
+      // duplicated with the user model
+      // {
+      //   question: "How much experience do you have?",
+      //   answer: {"Beginner", "Intermediate", "Expert"},
+      //   key: "experienceLevel"
+      // },
+      {
+        question: "How many times do you currently do exercise?",
+        answer: {
+          Never: null,
+          "1-2 times a week": null,
+          "3-4 times a week": null,
+          "5+ times a week": null
+        },
+        key: "exerciseFreq"
       },
       {
-        question: 'How many times a week do you want to work out?',
-        answer: ['2 times a week', '3 times a week', '4 times a week', '5 times a week', '6 times a week', 'Every day'],
-        key: 'muscle',
+        question: "How many times a week do you want to work out?",
+        answer: {
+          "2 times a week": null,
+          "3 times a week": null,
+          "4 times a week": null,
+          "5 times a week": null,
+          "6 times a week": null,
+          "Every day": null
+        },
+        key: "exerciseFreqWeekly"
       }
-      
     ];
   }
 
   OnInit() {}
 
-  recommedation(){
-    //this.router.navigate(['recommedation']
-    this.navCtrl.navigateForward(['recommedation']);
-    console.log(this.selection);
+  /*
+  async getItemitem(item, event) {
+    
+    let userInfo = await this.globalDB.get("UserInfo");
+    userInfo["exerciseTime"]
+    
+    this.questionMap[item["key"]] = null;
+    console.log(this.questionMap);
+  }
+  */
+
+  storeValue(item, value) {
+    this.questionMap[item["key"]] = value;
+  }
+
+  btnOnClick() {
+    this.recommendation.recommend(this.questionMap).then(exerciseOptions => {
+      this.router.navigate(["food-select", exerciseOptions]);
+    });
   }
 }

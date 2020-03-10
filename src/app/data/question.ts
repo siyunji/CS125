@@ -1,5 +1,5 @@
 export interface Question {
   question: string;
-  answer: string[];
+  answer: Object;//string[];
   key:string;
 }

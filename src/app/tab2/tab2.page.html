@@ -10,17 +10,17 @@
 </ion-header>
 
 <ion-content padding color = "primary">
-  <ion-list  *ngFor = "let item of questions" color = "secondary"  >
-    <ion-radio-group color = "secondary"  [(ngModel)] = "selection"  multiple="true">
+  <ion-list *ngFor = "let item of questions" color = "secondary">
+    <ion-radio-group color = "secondary" multiple="true">
       <ion-list-header color = "secondary" >
         <ion-label color = "success">{{item.question}}</ion-label>
       </ion-list-header>
-      <ion-item  color = "success"  *ngFor = "let an of item.answer"  >
-        <ion-label>{{an}}</ion-label>
-        <ion-radio value = {{an}} slot="end" color ="secondary"></ion-radio>
+      <ion-item  color = "success"  *ngFor = "let an of item.answer | keyvalue" (click) = "storeValue(item, an.value)">
+        <ion-label>{{an.key}}</ion-label>
+        <ion-radio value = {{an.key}} slot="end" color ="secondary"></ion-radio>
       </ion-item>
-      </ion-radio-group>
+    </ion-radio-group>
   </ion-list>
-  <ion-button shape="round" color = "secondary" (click) = "recommedation()" > Submit</ion-button>
+  <ion-button shape="round" color = "secondary" (click) = "btnOnClick();" > Submit</ion-button>
     
 </ion-content>

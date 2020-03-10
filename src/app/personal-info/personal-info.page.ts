@@ -27,37 +27,26 @@ export class PersonalInfoPage implements OnInit {
   e: any;
 
   constructor(
-    private router: Router,
     public navCtrl: NavController,
     private globalDB: Storage,
-    public modalController: ModalController,
-    public global: GlobalService
+    public modalController: ModalController
   ) {
-    // if not first time, jump to home
-    /*
-    globalDB.get("first_time_use").then(x => {
-      if (x === false) {
-        this.jumptoHome();
-      }
-    });
-
-    new Database(globalDB).init();
-    */
+    new Database(this.globalDB).init();
   }
 
   ngOnInit() {}
 
   public submitBtnOnClick() {
-    // TODO: load personal info to db
-    this.jumptoHome();
-  }
+    let userInfo = Object();
+    userInfo["height"] = this.h;
+    userInfo["weight"] = this.w;
+    userInfo["age"] = this.a;
+    userInfo["gender"] = this.g;
+    userInfo["experience"] = this.e;
 
-  jumptoHome() {
-    this.global.height = this.h;
-    this.global.weight = this.w;
-    this.global.age = this.a;
-    this.global.gender = this.g;
-    this.global.experience = this.e;
+    this.globalDB.set("UserInfo", userInfo);
+
+    this.globalDB.set("FirstTimeUse", false);
     this.navCtrl.navigateForward(["tabs"]);
   }
 }

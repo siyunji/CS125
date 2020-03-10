@@ -3,13 +3,13 @@
   <br /><br />
   <ion-list>
     <ion-item color="primary">
-      <ion-label position="fixed" color="secondary">Height(cm): </ion-label>
+      <ion-label position="fixed" color="secondary">Height(in): </ion-label>
       <ion-input
         text-right
         color="secondary"
         [(ngModel)]="h"
         type="number"
-        pattern="[0-9]*"
+        pattern="[0-9]+"
         decimal="true"
         allow-multiple-decimals="true"
         minlength="0"
@@ -20,13 +20,13 @@
     </ion-item>
 
     <ion-item color="primary">
-      <ion-label color="secondary" position="fixed">Weight(kg):</ion-label>
+      <ion-label color="secondary" position="fixed">Weight(lb):</ion-label>
       <ion-input
         text-right
         color="secondary"
         [(ngModel)]="w"
         type="number"
-        pattern="[0-9]*"
+        pattern="[0-9]+"
         decimal="true"
         allow-multiple-decimals="true"
         minlength="0"
@@ -43,7 +43,7 @@
         color="secondary"
         [(ngModel)]="a"
         type="number"
-        pattern="[0-9]*"
+        pattern="[0-9]+"
         decimal="true"
         allow-multiple-decimals="true"
         minlength="0"
@@ -58,7 +58,7 @@
       <ion-select text-right interface="popover" [(ngModel)]="e">
         <ion-select-option value="Beginner">Beginner</ion-select-option>
         <ion-select-option value="Intermediate">Intermediate</ion-select-option>
-        <ion-select-option value="Advanced">Advanced</ion-select-option>
+        <ion-select-option value="Expert">Advanced</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -73,7 +73,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-button shape="round" color="secondary" (click)="jumptoHome()"
+  <ion-button shape="round" color="secondary" (click)="submitBtnOnClick()"
     >Save</ion-button
   >
 </ion-content>

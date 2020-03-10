@@ -34,7 +34,6 @@ export class Database {
       );
     });
     this.globalDB.set("ExerciseDB", objDict);
-    console.log("Exercise DB init done.");
   }
 
   private initFoodDB() {

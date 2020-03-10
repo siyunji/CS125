@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { ActivatedRoute,Router  } from '@angular/router';
 
 @Component({
   selector: 'app-food-select',
@@ -8,12 +8,14 @@ import { NavController } from '@ionic/angular';
 })
 export class FoodSelectPage implements OnInit {
   exercise:any; 
-  constructor(public navCtrl: NavController) { 
-    this.exercise = ["running", "jogging","swimming","jumping"];
+  constructor(private route: ActivatedRoute, private router:Router) { 
+    this.route.params.subscribe((params: any) => {
+      this.exercise = params['exerciseOptions'];
+    });
   }
 
   ngOnInit() {}
   getFeedback(){
-    this.navCtrl.navigateForward(['feedback']);
+    this.router.navigate(['feedback']);
   }
 }

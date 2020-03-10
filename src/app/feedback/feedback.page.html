@@ -2,7 +2,6 @@
   <ion-toolbar color = "secondary">
     <ion-title>Recommedation</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button text=""></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +16,18 @@
         Your final recommedation: 
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content> </ion-card-content>
+    <ion-card-content>
+      
+    </ion-card-content>
   </ion-card>
+  <ion-item class="ion-text-center" color="primary" lines="none">
+    <ion-button
+      size="large"
+      style="margin:auto; margin-top: 20xp; margin-bottom: 20px;"
+      color="secondary"
+      shape="round"
 
+      fill="outline"
+      (click)="backToHome()">Ok, I got it!</ion-button>
+  </ion-item>
 </ion-content>

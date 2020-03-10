@@ -22,21 +22,78 @@ export class Recommendation {
     private locationReader: LocationReader,
     private directionReader: DirectionReader,
     private weatherReader: WeatherReader,
-    private pedometerReader: PedometerReader,
+    // private pedometerReader: PedometerReader,
     private globalDB: Storage
   ) {}
 
-  // calConsByExe is the return value of calculateCalorieConsumption
-  public recommend(calConsByExe: number) {
+  // [Exercise name, array of locations]
+  public async recommend(questionMap: Object): Promise<[String, String[]][]> {
+    let usr = await this.globalDB.get("UserInfo");
+    let exercises = await this.globalDB.get("ExerciseDB");
+    exercises = Object.values(exercises);
+    let locations = await this.globalDB.get("LocationDB");
+    locations = Object.values(locations);
+
+    let weather = "rain"; //await this.weatherReader.getWeather();
+
+    let dailyConsCal = await this.getDailyConsumedCal(
+      usr["gender"],
+      usr["weight"],
+      usr["height"],
+      usr["age"]
+    );
+
+    exercises = this.exerciseLevelFilter(exercises, usr["experience"]);
+    locations = this.locationWeatherFilter(locations, weather);
+    locations = this.locationTimeFilter(
+      locations,
+      new Date(),
+      questionMap["exerciseTime"] * 30
+    );
     
-    // let dailyConsCal = this.getDailyConsumedCal();
-    // ...
+    exercises = this.exerciseEquipmentFilter(locations, exercises);
+
+    await exercises.sort(
+      (exercise: { preferenceWeight: any }) => exercise.preferenceWeight
+    );
+    locations = this.sortLocation(locations);
+
+    let res: [String, String[]][];
+    res = [];
+
+    for (let i in exercises.slice(0, 5)) {
+      res.push([i, null]);
+    }
+
+    console.log(res);
+    return res;
+    
+    /*
+    let calConsByExe = this.getCalConsByExe(
+      usr["weight"],
+      questionMap["exerciseType"],
+      questionMap["exerciseTime"]
+    );
+*/
+  }
+
+  public changeWeight(options: string[], chosen: string): void {
+    this.globalDB.get("ExerciseDB").then(exercise_dict => {
+      for (let i = 0; i < options.length; i++) {
+        if (options[i] == chosen) {
+          exercise_dict[options[i]].addPreferenceWeight();
+        } else {
+          exercise_dict[options[i]].subPreferenceWeight();
+        }
+      }
+      this.globalDB.set("ExerciseDB", exercise_dict);
+    });
   }
 
   // assume weight has the unit pound
   // assume exerciseTime is multiple of 30mins. e.g, 1.5hr => exerciseTime = 3
   // For simplication, calorie consumption is calculated under gerneralized circunmstances.
-  public calculateCalorieConsumption(
+  private getCalConsByExe(
     weight: number,
     exerciseType: Goal,
     exerciseTime: number
@@ -60,19 +117,6 @@ export class Recommendation {
     return calorieCount * exerciseTime;
   }
 
-  public changeWeight(options: string[], chosen: string): void {
-    this.globalDB.get("ExerciseDB").then(exercise_dict => {
-      for (let i = 0; i < options.length; i++) {
-        if (options[i] == chosen) {
-          exercise_dict[options[i]].addPreferenceWeight();
-        } else {
-          exercise_dict[options[i]].subPreferenceWeight();
-        }
-      }
-      this.globalDB.set("ExerciseDB", exercise_dict);
-    });
-  }
-
   private locationWeatherFilter(
     locations: Location[],
     weather: string
@@ -87,6 +131,7 @@ export class Recommendation {
     if (!goodWeather.includes(weather)) {
       // if weather is bad
       let res: Location[];
+      res = [];
       for (let i = 0; i < locations.length; i++) {
         if (locations[i].isInDoor) {
           res.push(locations[i]); // choose only indoor locations
@@ -102,10 +147,11 @@ export class Recommendation {
     locations: Location[],
     currDate: Date,
     workoutTime: number
-  ) {
+  ): Location[] {
     let endDate = new Date(currDate);
     endDate.setMinutes(endDate.getMinutes() + workoutTime + 30); // End time should be 30 min earlier than closing time.
     let res: Location[];
+    res = [];
     for (let i = 0; i < locations.length; i++) {
       // If the location opens now and then, choose it
       if (
@@ -132,6 +178,7 @@ export class Recommendation {
 
     // if all of the equipments that an exercise need is in the set, choose it
     let res: Exercise[];
+    res = [];
     for (let i = 0; i < exercises.length; i++) {
       let choose_flag = true;
       for (let j = 0; j < exercises[i].equipment.length; j++) {
@@ -144,6 +191,17 @@ export class Recommendation {
       }
     }
 
+    return res;
+  }
+
+  private exerciseLevelFilter(exercises: Exercise[], level: String) {
+    let res: Exercise[];
+    res = [];
+    for (let i = 0; i < exercises.length; i++) {
+      if (exercises[i].difficulty == level) {
+        res.push(exercises[i]);
+      }
+    }
     return res;
   }
 
@@ -181,35 +239,36 @@ export class Recommendation {
   // - BMR for female: 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
   // - BMR for other / prefer not to say: calculate the mean of the above two formulas
   // - The daily calorie consumed is BMR * Activity Level
-  private getDailyConsumedCal(
-    gender: string, 
-    weight: number, 
-    height: number, 
+  private async getDailyConsumedCal(
+    gender: string,
+    weight: number,
+    height: number,
     age: number
-    ): Promise<number> {
-    return this.getCalConsumedByWalk().then(calConsByWalk => {
-      let activityLevel = 1.2;
-      let BMRForMale = (66 + (6.2 * weight) + (12.7 * height) - (6.76 * age));
-      let BMRForFemale = (655.1 + (4.35 * weight) + (4.7 * height) - (4.7 * age));
-      let BMR = 0;
-
-      if (gender == "male") {
-        BMR = BMRForMale;
-      }
-      else if (gender == "female") {
-        BMR = BMRForFemale;
-      }
-      else { // gender is other / prefer not to say
-        BMR = (BMRForMale + BMRForFemale) / 2;
-      }
-      return BMR * activityLevel + calConsByWalk;
-    })
+  ): Promise<number> {
+    //const calConsByWalk = await this.getCalConsumedByWalk();
+    let calConsByWalk = 0; // ...
+    let activityLevel = 1.2;
+    let BMRForMale = 66 + 6.2 * weight + 12.7 * height - 6.76 * age;
+    let BMRForFemale = 655.1 + 4.35 * weight + 4.7 * height - 4.7 * age;
+    let BMR = 0;
+    if (gender == "male") {
+      BMR = BMRForMale;
+    } else if (gender == "female") {
+      BMR = BMRForFemale;
+    } else {
+      // gender is other / prefer not to say
+      BMR = (BMRForMale + BMRForFemale) / 2;
+    }
+    return BMR * activityLevel + calConsByWalk;
   }
-
+  /*
   private async getCalConsumedByWalk(): Promise<number> {
+    let userInfo = await this.globalDB.get("UserInfo");
     let step = await this.pedometerReader.readStepCount();
-    let usrWeight = 70; // Dummy Here
-    let cal = usrWeight / 2000 * step;
-    return cal;
+    return (userInfo["weight"] / 2000) * step;
+  }
+*/
+  private foodFilter(cal: number): [] {
+    return []; // ..
   }
 }

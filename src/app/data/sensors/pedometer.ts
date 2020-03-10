@@ -5,7 +5,8 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class PedometerReader {
-  constructor(private pedometer: Pedometer) {}
+  private _pedometer = new Pedometer();
+  constructor() {}
 
   public async readStepCount(): Promise<number> {
     // debug
@@ -14,7 +15,7 @@ export class PedometerReader {
     //   .then((available: boolean) => console.log(available))
     //   .catch((error: any) => console.log(error));
 
-    const data = await this.pedometer.startPedometerUpdates().toPromise();
+    const data = await this._pedometer.startPedometerUpdates().toPromise();
     return data.numberOfSteps;
   }
 }
