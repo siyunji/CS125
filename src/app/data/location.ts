@@ -52,7 +52,7 @@ export class Location {
     this._distance = value;
   }
 
-  public isOpen(weekday: number, hour: number): boolean {
-    return ((this._runningTime[weekday] >> hour) & 1) == 1;
+  public static isOpen(location: Location, weekday: number, hour: number): boolean {
+    return ((location._runningTime[weekday] >> hour) & 1) == 1;
   }
 }

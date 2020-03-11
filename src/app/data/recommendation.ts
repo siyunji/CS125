@@ -29,10 +29,10 @@ export class Recommendation {
   // [Exercise name, array of locations]
   public async recommend(questionMap: Object): Promise<[String, String[]][]> {
     let usr = await this.globalDB.get("UserInfo");
-    let exercises = await this.globalDB.get("ExerciseDB");
-    exercises = Object.values(exercises);
-    let locations = await this.globalDB.get("LocationDB");
-    locations = Object.values(locations);
+    let exercises_db = await this.globalDB.get("ExerciseDB");
+    let exercises: Exercise[] = Object.values(exercises_db);
+    let locations_db = await this.globalDB.get("LocationDB");
+    let locations: Location[] = Object.values(locations_db);
 
     let weather = "rain"; //await this.weatherReader.getWeather();
 
@@ -44,16 +44,16 @@ export class Recommendation {
     );
 
     exercises = this.exerciseLevelFilter(exercises, usr["experience"]);
-    locations = this.locationWeatherFilter(locations, weather);
+    locations = this.locationWeatherFilter(locations, weather);    
     locations = this.locationTimeFilter(
       locations,
       new Date(),
       questionMap["exerciseTime"] * 30
     );
-    
+
     exercises = this.exerciseEquipmentFilter(locations, exercises);
 
-    await exercises.sort(
+    exercises.sort(
       (exercise: { preferenceWeight: any }) => exercise.preferenceWeight
     );
     locations = this.sortLocation(locations);
@@ -67,7 +67,7 @@ export class Recommendation {
 
     console.log(res);
     return res;
-    
+
     /*
     let calConsByExe = this.getCalConsByExe(
       usr["weight"],
@@ -133,7 +133,7 @@ export class Recommendation {
       let res: Location[];
       res = [];
       for (let i = 0; i < locations.length; i++) {
-        if (locations[i].isInDoor) {
+        if ((locations[i] as any)._isInDoor) {
           res.push(locations[i]); // choose only indoor locations
         }
       }
@@ -152,15 +152,25 @@ export class Recommendation {
     endDate.setMinutes(endDate.getMinutes() + workoutTime + 30); // End time should be 30 min earlier than closing time.
     let res: Location[];
     res = [];
+    console.log(locations);
     for (let i = 0; i < locations.length; i++) {
       // If the location opens now and then, choose it
+      console.log(locations[i]._name);
+      console.log(
+        Location.isOpen(locations[i], currDate.getDay(), currDate.getHours())
+      );
+      console.log(
+        Location.isOpen(locations[i], endDate.getDay(), endDate.getHours())
+      );
       if (
-        locations[i].isOpen(currDate.getDay(), currDate.getHours()) &&
-        locations[i].isOpen(endDate.getDay(), endDate.getHours())
+        Location.isOpen(locations[i], currDate.getDay(), currDate.getHours()) &&
+        Location.isOpen(locations[i], endDate.getDay(), endDate.getHours())
       ) {
         res.push(locations[i]);
       }
     }
+    console.log(res);
+
     return res;
   }
 
@@ -181,8 +191,8 @@ export class Recommendation {
     res = [];
     for (let i = 0; i < exercises.length; i++) {
       let choose_flag = true;
-      for (let j = 0; j < exercises[i].equipment.length; j++) {
-        if (!equipments.has(exercises[i].equipment[j])) {
+      for (let j = 0; j < (exercises[i] as any)._equipment.length; j++) {
+        if (!equipments.has((exercises[i] as any)._equipment[j])) {
           choose_flag = false;
         }
       }
@@ -198,8 +208,8 @@ export class Recommendation {
     let res: Exercise[];
     res = [];
     for (let i = 0; i < exercises.length; i++) {
-      if (exercises[i].difficulty == level) {
-        res.push(exercises[i]);
+      if ((exercises[i] as any)._difficulty == level) {
+        res.push(exercises[i] as Exercise);
       }
     }
     return res;

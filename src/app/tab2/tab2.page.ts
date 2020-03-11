@@ -38,7 +38,7 @@ export class Tab2Page {
       },
       {
         question: "How long do you want to exercise?",
-        answer: { "30 mins": 1, "1 hour": 2, "1.5 hours": 3, "2 hours": 4 },
+        answer: { "0.5 hour": 1, "1 hour": 2, "1.5 hours": 3, "2 hours": 4 },
         key: "exerciseTime"
       },
       // duplicated with the user model
