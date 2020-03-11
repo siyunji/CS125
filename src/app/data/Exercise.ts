@@ -22,7 +22,7 @@ export class Exercise {
       return this._name;
   }
 
-  public get difficulty() {
+  public get difficulty():string {
       return this._difficulty;
   }
 

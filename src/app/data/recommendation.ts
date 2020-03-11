@@ -194,15 +194,19 @@ export class Recommendation {
     return res;
   }
 
-  private exerciseLevelFilter(exercises: Exercise[], level: String) {
+  private exerciseLevelFilter(exercises: any, level: String) {
     let res: Exercise[];
     res = [];
+    
     for (let i = 0; i < exercises.length; i++) {
-      if (exercises[i].difficulty == level) {
-        res.push(exercises[i]);
+      if (exercises[i]._difficulty == level) {
+        let exe = new Exercise(exercises[i]._name,exercises[i]._difficulty,exercises[i]._type, exercises[i].__equipment);
+        res.push(exe);
       }
     }
+    console.log(res);
     return res;
+   
   }
 
   private sortLocation(locations: Location[]): Location[] {
