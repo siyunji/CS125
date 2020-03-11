@@ -13,7 +13,10 @@
     <img src = "../../assets/icon/fitness.jpg">
     <ion-card-header>
       <ion-card-title style="color: #874903">
-        Your final recommedation: 
+        Your final recommedation: <br>
+        <ion-list *ngFor = "let loc of text">
+            {{ loc }}
+        </ion-list>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>

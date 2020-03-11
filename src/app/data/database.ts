@@ -56,7 +56,7 @@ export class Database {
         e["Display_name"],
         e["Address"],
         e["Equipment"],
-        e["isIndoor"],
+        e["isInDoor"],
         e["Display_time"],
         e["Running_time"]
       );

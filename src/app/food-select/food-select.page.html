@@ -15,7 +15,7 @@
       <ion-list-header color = "secondary">
         <ion-label color = "success">Select one exercise you like best</ion-label>
       </ion-list-header>
-      <ion-item color = "success" *ngFor = "let e of exercise" >
+      <ion-item color = "success" *ngFor = "let e of exercise" (click) = "selectExercise(e)">
         <ion-label>{{e}}</ion-label>
         <ion-radio slot="end" color ="secondary" ></ion-radio>
       </ion-item>

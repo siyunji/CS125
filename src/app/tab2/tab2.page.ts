@@ -21,7 +21,7 @@ export class Tab2Page {
 
   constructor(private router: Router, private recommendation: Recommendation) {
     this.questionMap = new Object();
-    
+
     this.questions = [
       {
         question: "During which time do you want to exercise?",
@@ -91,7 +91,7 @@ export class Tab2Page {
 
   btnOnClick() {
     this.recommendation.recommend(this.questionMap).then(exerciseOptions => {
-      this.router.navigate(["food-select", exerciseOptions]);
+      this.router.navigate(["food-select", [JSON.stringify(exerciseOptions)]]);
     });
   }
 }

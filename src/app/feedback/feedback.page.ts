@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "@ionic/angular";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-feedback",
@@ -7,7 +8,23 @@ import { NavController } from "@ionic/angular";
   styleUrls: ["./feedback.page.scss"]
 })
 export class FeedbackPage implements OnInit {
-  constructor(private navCtrl: NavController) {}
+  text: string[];
+  constructor(private navCtrl: NavController, private route: ActivatedRoute) {
+    this.text = [];
+    this.route.params.subscribe((params: any) => {
+      let recom = JSON.parse(params[0]);
+      this.text.push(Object.keys(recom)[0]);
+
+      this.text.push("\nYou can do it at:\n");
+
+      let locations = [];
+      for (let l of recom[Object.keys(recom)[0]]) {
+        console.log((l as any)._name);
+        this.text.push((l as any)._name);
+      }
+
+    });
+  }
 
   ngOnInit() {}
 

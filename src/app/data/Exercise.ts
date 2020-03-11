@@ -9,7 +9,7 @@ export class Exercise {
     name: string,
     difficulty: string,
     type: string,
-    equipment: [string],    
+    equipment: [string]
   ) {
     this._name = name;
     this._difficulty = difficulty;
@@ -19,30 +19,30 @@ export class Exercise {
   }
 
   public get name() {
-      return this._name;
+    return this._name;
   }
 
   public get difficulty() {
-      return this._difficulty;
+    return this._difficulty;
   }
 
   public get type() {
-      return this._type;
+    return this._type;
   }
 
   public get equipment() {
-      return this._equipment;
+    return this._equipment;
   }
 
   public get preferenceWeight() {
-      return this._preferenceWeight;
+    return this._preferenceWeight;
   }
 
-  public addPreferenceWeight() {
-      this._preferenceWeight += 1;
+  public static addPreferenceWeight(e: Exercise) {
+    e._preferenceWeight += 1;
   }
 
-  public subPreferenceWeight() {
-      this._preferenceWeight -= 0.25;
+  public static subPreferenceWeight(e: Exercise) {
+    e._preferenceWeight -= 0.25;
   }
 }
