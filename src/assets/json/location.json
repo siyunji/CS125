@@ -1,68 +1,181 @@
 {
-    "Locations" : 
-        {
-            "ARC" : {
-                "Display_name" : "ARC",
-                "Address" : "680 California Ave, Irvine, CA 92617",
-                "Equipment" : ["Machine", "Medicine Ball", "Barbell", "Dumbbell", "Body Only", "Kettlebells", "Cable", "E-Z Curl Bar", "Bands", "Exercise Ball", "Cardio", "Foam Roll", "Lift"],
-                "isInDoor" : true,
-                "Display_time" : ["MTuWTh 6am-1am", "FSu 6am-12am", "Sa 6am-9pm"],
-                "Running_time" : [16777152, 16777152, 16777153, 16777153, 16777153, 16777152, 2097088]
-            },
-    
-            "LA Fitness" : {
-                "Display_name" : "LA Fitness",
-                "Address" : "3021 Michelson Dr",
-                "Equipment" : ["Machine", "Medicine Ball", "Barbell", "Dumbbell", "Body Only", "Kettlebells", "Cable", "E-Z Curl Bar", "Bands", "Exercise Ball", "Cardio", "Foam Roll", "Lift"],
-                "isIndoor" : true,
-                "Display_time" : ["M-Th 5am-11pm", "F 5am-10pm", "SaSu 8am-8pm"],
-                "Running_time" : [1048320, 8388576, 8388576, 8388576, 8388576, 4194272, 1048320]
-            },
-        
-            "24hrs Fitness" : {
-                "Display_name" : "24hrs Fitness",
-                "Address" : "18007 Von Karman Ave, Irvine, CA 92612",
-                "Equipment" : ["Machine", "Medicine Ball", "Barbell", "Dumbbell", "Body Only", "Kettlebells", "Cable", "E-Z Curl Bar", "Bands", "Exercise Ball", "Cardio", "Foam Roll", "Lift"],
-                "isInDoor" : true,
-                "Display_time" : ["MTuWThFSaSu 5am-11pm"],
-                "Running_time" : [8388576, 8388576, 8388576, 8388576, 8388576, 8388576, 8388576]
-            },
-            
-        
-            "Park Place Fitness" : {
-                "Display_name" : "Park Place Fitness",
-                "Address" : "3395 Michelson Dr, Irvine, CA 92612",
-                "Equipment" : ["Machine", "Medicine Ball", "Barbell", "Dumbbell", "Body Only", "Cable", "Exercise Ball", "Cardio", "Foam Roll", "Lift"],
-                "isInDoor" : true,
-                "Display_time" : ["MTuWThFSaSu 0am-12am"],
-                "Running_time" : [16777215, 16777215, 16777215, 16777215, 16777215, 16777215, 16777215]
-            },
-    
-            "Next Level Fitness" : {
-                "Display_name" : "Next Level Fitness",
-                "Address" : "17811 sky park circle, Irvine, CA, 92614",
-                "Equipment" : ["Machine", "Medicine Ball", "Barbell", "Dumbbell", "Body Only", "Kettlebells", "Cable", "E-Z Curl Bar", "Bands", "Exercise Ball", "Cardio", "Foam Roll", "Lift"],
-                "isInDoor" : true,
-                "Display_time" : ["MTuWThF 5am-8pm", "Sa 6am-4pm"],
-                "Running_time" : [null, 1048544, 1048544, 1048544, 1048544, 1048544, 65472]
-            },
-        
-            "Aldrich Park" : {
-                "Display_name" : "Aldrich Park",
-                "Address" : "Irvine, CA 92697",
-                "Equipment" : ["Body Only"],
-                "isInDoor" : false,
-                "Display_time" : ["MTuWThFSaSu 0am-12am"],
-                "Running_time" : [16777215, 16777215, 16777215, 16777215, 16777215, 16777215, 16777215]
-            },    
-        
-            "Bonita Canyon Sports Park" : {
-                "Display_name" : "Bonita Canyon Sports Park",
-                "Address" : "1990 Ford Rd, Newport Beach, CA 92660",
-                "Equipment" : ["Body Only", "Cardio"],
-                "isInDoor" : false,
-                "Display_time" : ["MTuWThFSaSu 8am-10pm"],
-                "Running_time" : [4194048, 4194048, 4194048, 4194048, 4194048, 4194048, 4194048]
-            }        
-        }
+  "Locations": {
+    "ARC": {
+      "Display_name": "ARC",
+      "Address": "680 California Ave, Irvine, CA 92617",
+      "Equipment": [
+        "Machine",
+        "Medicine Ball",
+        "Barbell",
+        "Dumbbell",
+        "Body Only",
+        "Kettlebells",
+        "Cable",
+        "E-Z Curl Bar",
+        "Bands",
+        "Exercise Ball",
+        "Cardio",
+        "Foam Roll",
+        "Lift"
+      ],
+      "isInDoor": true,
+      "Display_time": ["MTuWTh 6am-1am", "FSu 6am-12am", "Sa 6am-9pm"],
+      "Running_time": [
+        16777152,
+        16777152,
+        16777153,
+        16777153,
+        16777153,
+        16777152,
+        2097088
+      ]
+    },
+
+    "LA Fitness": {
+      "Display_name": "LA Fitness",
+      "Address": "3021 Michelson Dr",
+      "Equipment": [
+        "Machine",
+        "Medicine Ball",
+        "Barbell",
+        "Dumbbell",
+        "Body Only",
+        "Kettlebells",
+        "Cable",
+        "E-Z Curl Bar",
+        "Bands",
+        "Exercise Ball",
+        "Cardio",
+        "Foam Roll",
+        "Lift"
+      ],
+      "isInDoor": true,
+      "Display_time": ["M-Th 5am-11pm", "F 5am-10pm", "SaSu 8am-8pm"],
+      "Running_time": [
+        1048320,
+        8388576,
+        8388576,
+        8388576,
+        8388576,
+        4194272,
+        1048320
+      ]
+    },
+
+    "24hrs Fitness": {
+      "Display_name": "24hrs Fitness",
+      "Address": "18007 Von Karman Ave, Irvine, CA 92612",
+      "Equipment": [
+        "Machine",
+        "Medicine Ball",
+        "Barbell",
+        "Dumbbell",
+        "Body Only",
+        "Kettlebells",
+        "Cable",
+        "E-Z Curl Bar",
+        "Bands",
+        "Exercise Ball",
+        "Cardio",
+        "Foam Roll",
+        "Lift"
+      ],
+      "isInDoor": true,
+      "Display_time": ["MTuWThFSaSu 5am-11pm"],
+      "Running_time": [
+        8388576,
+        8388576,
+        8388576,
+        8388576,
+        8388576,
+        8388576,
+        8388576
+      ]
+    },
+
+    "Park Place Fitness": {
+      "Display_name": "Park Place Fitness",
+      "Address": "3395 Michelson Dr, Irvine, CA 92612",
+      "Equipment": [
+        "Machine",
+        "Medicine Ball",
+        "Barbell",
+        "Dumbbell",
+        "Body Only",
+        "Cable",
+        "Exercise Ball",
+        "Cardio",
+        "Foam Roll",
+        "Lift"
+      ],
+      "isInDoor": true,
+      "Display_time": ["24/7"],
+      "Running_time": [
+        16777215,
+        16777215,
+        16777215,
+        16777215,
+        16777215,
+        16777215,
+        16777215
+      ]
+    },
+
+    "Next Level Fitness": {
+      "Display_name": "Next Level Fitness",
+      "Address": "17811 sky park circle, Irvine, CA, 92614",
+      "Equipment": [
+        "Machine",
+        "Medicine Ball",
+        "Barbell",
+        "Dumbbell",
+        "Body Only",
+        "Kettlebells",
+        "Cable",
+        "E-Z Curl Bar",
+        "Bands",
+        "Exercise Ball",
+        "Cardio",
+        "Foam Roll",
+        "Lift"
+      ],
+      "isInDoor": true,
+      "Display_time": ["MTuWThF 5am-8pm", "Sa 6am-4pm"],
+      "Running_time": [null, 1048544, 1048544, 1048544, 1048544, 1048544, 65472]
+    },
+
+    "Aldrich Park": {
+      "Display_name": "Aldrich Park",
+      "Address": "Irvine, CA 92697",
+      "Equipment": ["Body Only"],
+      "isInDoor": false,
+      "Display_time": ["MTuWThFSaSu 0am-12am"],
+      "Running_time": [
+        16777215,
+        16777215,
+        16777215,
+        16777215,
+        16777215,
+        16777215,
+        16777215
+      ]
+    },
+
+    "Bonita Canyon Sports Park": {
+      "Display_name": "Bonita Canyon Sports Park",
+      "Address": "1990 Ford Rd, Newport Beach, CA 92660",
+      "Equipment": ["Body Only", "Cardio"],
+      "isInDoor": false,
+      "Display_time": ["MTuWThFSaSu 8am-10pm"],
+      "Running_time": [
+        4194048,
+        4194048,
+        4194048,
+        4194048,
+        4194048,
+        4194048,
+        4194048
+      ]
+    }
+  }
 }

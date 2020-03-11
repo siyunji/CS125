@@ -11,10 +11,10 @@
   <ion-list color="secondary"  >
     <ion-radio-group color="secondary" [(ngModel)] = "selection">
       <ion-list-header color="secondary">
-        <ion-label color="success">Select one food you like best</ion-label>
+        <ion-label >Select one food you like best</ion-label>
       </ion-list-header>
-      <ion-item color="success" *ngFor="let item of food">
-        <ion-label>{{item}}</ion-label>
+      <ion-item color="secondary" *ngFor="let item of food">
+        <ion-label color="primary">{{item}}</ion-label>
         <ion-radio value = {{item}} slot="end" color="secondary"></ion-radio>
       </ion-item>
     </ion-radio-group>
@@ -23,7 +23,7 @@
   <ion-button
     shape="round"
     color="secondary"
-    style="margin: auto;"
+    style="margin: auto; margin-top: 20px;"
     (click)="foodSelect()"
   >
     Submit</ion-button

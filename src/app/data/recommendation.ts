@@ -26,15 +26,16 @@ export class Recommendation {
     private globalDB: Storage
   ) {}
 
-  // [Exercise name, array of locations]
-  public async recommend(questionMap: Object): Promise<[String, String[]][]> {
+  // {Exercise name: array of locations}
+  public async recommend(questionMap: Object): Promise<Object[]> {
     let usr = await this.globalDB.get("UserInfo");
-    let exercises = await this.globalDB.get("ExerciseDB");
-    exercises = Object.values(exercises);
-    let locations = await this.globalDB.get("LocationDB");
-    locations = Object.values(locations);
+    let exercises_db = await this.globalDB.get("ExerciseDB");
+    let exercises: Exercise[] = Object.values(exercises_db);
+    let locations_db = await this.globalDB.get("LocationDB");
+    let locations: Location[] = Object.values(locations_db);
 
-    let weather = "rain"; //await this.weatherReader.getWeather();
+    let weather = "Shower"; // await this.weatherReader.getWeather();
+    console.log(weather);
 
     let dailyConsCal = await this.getDailyConsumedCal(
       usr["gender"],
@@ -44,30 +45,41 @@ export class Recommendation {
     );
 
     exercises = this.exerciseLevelFilter(exercises, usr["experience"]);
+
     locations = this.locationWeatherFilter(locations, weather);
+
     locations = this.locationTimeFilter(
       locations,
       new Date(),
       questionMap["exerciseTime"] * 30
     );
-    
     exercises = this.exerciseEquipmentFilter(locations, exercises);
 
-    await exercises.sort(
-      (exercise: { preferenceWeight: any }) => exercise.preferenceWeight
-    );
-    locations = this.sortLocation(locations);
+    this.changeWeight(["Incline Hammer Curls"], "Incline Hammer Curls");
 
-    let res: [String, String[]][];
+    exercises.sort(
+      (exercise: Exercise) => -(exercise as any)._preferenceWeight
+    );
+
+    locations = await this.sortLocation(locations);
+
+    let res: Object[];
     res = [];
 
-    for (let i in exercises.slice(0, 5)) {
-      res.push([i, null]);
+    console.log(locations);
+
+    for (let e of exercises.slice(0, 5)) {
+      let o = new Object();
+
+      console.log(e);
+      console.log(this.locationEquipmentFilter(locations, e));
+
+      o[(e as any)._name] = this.locationEquipmentFilter(locations, e);
+      res.push(o);
     }
 
-    console.log(res);
     return res;
-    
+
     /*
     let calConsByExe = this.getCalConsByExe(
       usr["weight"],
@@ -81,9 +93,10 @@ export class Recommendation {
     this.globalDB.get("ExerciseDB").then(exercise_dict => {
       for (let i = 0; i < options.length; i++) {
         if (options[i] == chosen) {
-          exercise_dict[options[i]].addPreferenceWeight();
+
+          Exercise.addPreferenceWeight(exercise_dict[options[i]]);
         } else {
-          exercise_dict[options[i]].subPreferenceWeight();
+          Exercise.subPreferenceWeight(exercise_dict[options[i]]);
         }
       }
       this.globalDB.set("ExerciseDB", exercise_dict);
@@ -132,8 +145,9 @@ export class Recommendation {
       // if weather is bad
       let res: Location[];
       res = [];
+
       for (let i = 0; i < locations.length; i++) {
-        if (locations[i].isInDoor) {
+        if ((locations[i] as any)._isInDoor) {
           res.push(locations[i]); // choose only indoor locations
         }
       }
@@ -155,12 +169,13 @@ export class Recommendation {
     for (let i = 0; i < locations.length; i++) {
       // If the location opens now and then, choose it
       if (
-        locations[i].isOpen(currDate.getDay(), currDate.getHours()) &&
-        locations[i].isOpen(endDate.getDay(), endDate.getHours())
+        Location.isOpen(locations[i], currDate.getDay(), currDate.getHours()) &&
+        Location.isOpen(locations[i], endDate.getDay(), endDate.getHours())
       ) {
         res.push(locations[i]);
       }
     }
+
     return res;
   }
 
@@ -171,8 +186,8 @@ export class Recommendation {
     // pull set of available equipments
     let equipments = new Set();
     for (let i = 0; i < locations.length; i++) {
-      for (let j = 0; j < locations[i].equipment.length; j++) {
-        equipments.add(locations[i].equipment[j]);
+      for (let j = 0; j < (locations[i] as any)._equipment.length; j++) {
+        equipments.add((locations[i] as any)._equipment[j]);
       }
     }
 
@@ -181,8 +196,8 @@ export class Recommendation {
     res = [];
     for (let i = 0; i < exercises.length; i++) {
       let choose_flag = true;
-      for (let j = 0; j < exercises[i].equipment.length; j++) {
-        if (!equipments.has(exercises[i].equipment[j])) {
+      for (let j = 0; j < (exercises[i] as any)._equipment.length; j++) {
+        if (!equipments.has((exercises[i] as any)._equipment[j])) {
           choose_flag = false;
         }
       }
@@ -199,9 +214,8 @@ export class Recommendation {
     res = [];
     
     for (let i = 0; i < exercises.length; i++) {
-      if (exercises[i]._difficulty == level) {
-        let exe = new Exercise(exercises[i]._name,exercises[i]._difficulty,exercises[i]._type, exercises[i].__equipment);
-        res.push(exe);
+      if ((exercises[i] as any)._difficulty == level) {
+        res.push(exercises[i] as Exercise);
       }
     }
     console.log(res);
@@ -209,26 +223,35 @@ export class Recommendation {
    
   }
 
-  private sortLocation(locations: Location[]): Location[] {
-    let currentLat: number;
-    let currentLng: number;
+  private locationEquipmentFilter(locations: Location[], exercise: Exercise) {
+    let res: Location[] = [];
+    for (let l of locations) {
+      if ((l as any)._equipment.includes((exercise as any)._equipment[0])) {
+        res.push(l);
+      }
+    }
+    return res;
+  }
 
-    this.locationReader.getLocation().then(data => {
-      currentLat = data[0];
-      currentLng = data[1];
-    });
+  private async sortLocation(locations: Location[]): Promise<Location[]> {
+    //let data = await this.locationReader.getLocation();
+    //let currentLat: number = data[0];
+    //let currentLng: number = data[1];
 
     for (let i = 0; i < locations.length; i++) {
       let loc = locations[i];
-      let addr = loc.address;
-      this.directionReader
-        .getDistance(currentLat, currentLng, addr)
-        .then(data => {
-          loc.distance = data;
-        });
+      let addr = (loc as any)._address;
+      /*
+      data = await this.directionReader.getDistance(
+        currentLat,
+        currentLng,
+        addr
+      );
+      (loc as any)._distance = data;
+      */
     }
 
-    locations.sort(location => location.distance);
+    locations.sort(location => (location as any)._distance);
     return locations;
   }
 

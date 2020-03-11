@@ -17,8 +17,8 @@ export class Location {
   ) {
     this._name = name;
     this._address = address;
-    this._isInDoor = isInDoor;
     this._equipment = equipment;
+    this._isInDoor = isInDoor;
     this._runningTime = runningTime;
     this._displayTime = displayTime;
     this._distance = -1;
@@ -52,7 +52,7 @@ export class Location {
     this._distance = value;
   }
 
-  public isOpen(weekday: number, hour: number): boolean {
-    return ((this._runningTime[weekday] >> hour) & 1) == 1;
+  public static isOpen(location: Location, weekday: number, hour: number): boolean {
+    return ((location._runningTime[weekday] >> hour) & 1) == 1;
   }
 }

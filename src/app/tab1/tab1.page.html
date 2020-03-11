@@ -1,43 +1,47 @@
-<ion-header>
-  <ion-toolbar color="tertiary">
-    <ion-title>
+<ion-header text-wrap>
+  <ion-toolbar color="secondary">
+    <ion-title style=" position: static">
       Welcome to UCIFitness
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="primary">
-  <ion-card color="tertiary">
-    <ion-card-header>
-      <ion-card-title style="color: #874903"> Instruction </ion-card-title>
+  <ion-card color="secondary">
+    <ion-card-header color="tertiary">
+      <ion-card-title> Instruction </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
+      <br />
       <p><strong>First Step:</strong> Fill the questionaire</p>
       <br />
       <p><strong>Second Step:</strong> Get the recommedation</p>
       <br />
       <p><strong>Third Step:</strong> Provide feedback</p>
+      <br />
     </ion-card-content>
   </ion-card>
 
   <ion-card color="secondary">
-    <ion-card-header>
-      <ion-card-title style="color:#dff5da"> Daily Reminder: </ion-card-title>
+    <ion-card-header color="success">
+      <ion-card-title> Daily Reminder: </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
+      <br />
       <p><strong> 8:00 - 9:00 </strong> &nbsp;&nbsp; Running</p>
+      <br />
     </ion-card-content>
   </ion-card>
 
-  <ion-card color="tertiary">
-    <ion-card-header>
-      <ion-card-title style="color: #874903">
+  <ion-card color="secondary">
+    <ion-card-header color="warning">
+      <ion-card-title>
         Your BMI Number: {{bmi}}
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content> {{bmiResult }}</ion-card-content>
+    <ion-card-content> <br />{{bmiResult }}</ion-card-content> <br />
   </ion-card>
 
   <ion-item class="ion-text-center" color="primary" lines="none">
@@ -46,8 +50,9 @@
       style="margin:auto; margin-top: 20xp; margin-bottom: 20px;"
       color="secondary"
       shape="round"
-
-      fill="outline"
-      (click)="start()">Start</ion-button>
+      
+      (click)="start()"
+      >Start</ion-button
+    >
   </ion-item>
 </ion-content>

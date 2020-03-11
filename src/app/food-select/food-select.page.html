@@ -10,19 +10,19 @@
 
 <ion-content padding color = "primary">
 
-  <ion-list color = "secondary">
-    <ion-radio-group color = "secondary">
+  <ion-list color = "secondary" >
+    <ion-radio-group color = "secondary"  >
       <ion-list-header color = "secondary">
-        <ion-label color = "success">Select one exercise you like best</ion-label>
+        <ion-label  color = "tertiary">Select one exercise you like best</ion-label>
       </ion-list-header>
-      <ion-item color = "success" *ngFor = "let e of exercise" >
-        <ion-label>{{e}}</ion-label>
-        <ion-radio slot="end" color ="secondary" ></ion-radio>
+      <ion-item color = "secondary" *ngFor = "let e of exercise" >
+        <ion-label >{{e}}</ion-label>
+        <ion-radio slot="end" color ="primary"  (click) = "selectExercise(e)" ></ion-radio>
       </ion-item>
       </ion-radio-group>
   </ion-list>
 
-  <ion-button shape="round" color = "secondary" style="margin: auto;" (click)="getFeedback()" > Submit</ion-button>
+  
 
 
 </ion-content>

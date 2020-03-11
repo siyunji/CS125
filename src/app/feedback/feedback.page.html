@@ -9,11 +9,15 @@
 
 <ion-content color = "primary">
 
-  <ion-card color="tertiary">
-    <img src = "../../assets/icon/fitness.jpg">
+  <ion-card color="secondary">
+    <img src = "../../assets/icon/fit2.jpg">
     <ion-card-header>
-      <ion-card-title style="color: #874903">
+      <ion-card-title text-center style="color: #d9e13a " >
         Your final recommedation: 
+        
+        <ion-item color="secondary" *ngFor = "let loc of text" text-center >
+              <p text-center> {{ loc }}</p> 
+        </ion-item>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -24,7 +28,7 @@
     <ion-button
       size="large"
       style="margin:auto; margin-top: 20xp; margin-bottom: 20px;"
-      color="secondary"
+      color="tertiary"
       shape="round"
 
       fill="outline"

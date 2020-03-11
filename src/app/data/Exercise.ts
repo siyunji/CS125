@@ -22,7 +22,7 @@ export class Exercise {
       return this._name;
   }
 
-  public get difficulty():string {
+  public get difficulty() {
       return this._difficulty;
   }
 
@@ -38,11 +38,11 @@ export class Exercise {
       return this._preferenceWeight;
   }
 
-  public addPreferenceWeight() {
-      this._preferenceWeight += 1;
+  public static addPreferenceWeight(e: Exercise) {
+      e._preferenceWeight += 1;
   }
 
-  public subPreferenceWeight() {
-      this._preferenceWeight -= 0.25;
+  public static subPreferenceWeight(e: Exercise) {
+      e._preferenceWeight -= 0.25;
   }
 }

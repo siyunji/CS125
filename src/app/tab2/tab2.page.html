@@ -1,6 +1,6 @@
-<ion-header >
-  <ion-toolbar color = "tertiary">
-    <ion-title>
+<ion-header text-wrap>
+  <ion-toolbar color = "secondary">
+    <ion-title style="  position: static">
       Questionaire 
     </ion-title>
     <ion-buttons slot="start">
@@ -13,14 +13,14 @@
   <ion-list *ngFor = "let item of questions" color = "secondary">
     <ion-radio-group color = "secondary" multiple="true">
       <ion-list-header color = "secondary" >
-        <ion-label color = "success">{{item.question}}</ion-label>
+        <ion-label color = "tertiary">{{item.question}}</ion-label>
       </ion-list-header>
-      <ion-item  color = "success"  *ngFor = "let an of item.answer | keyvalue" (click) = "storeValue(item, an.value)">
+      <ion-item  color = "secondary"  *ngFor = "let an of item.answer | keyvalue" (click) = "storeValue(item, an.value)">
         <ion-label>{{an.key}}</ion-label>
-        <ion-radio value = {{an.key}} slot="end" color ="secondary"></ion-radio>
+        <ion-radio  required color = "tertiary" value = {{an.key}} slot="end" ></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>
-  <ion-button shape="round" color = "secondary" (click) = "btnOnClick();" > Submit</ion-button>
+  <ion-button style = "margin-top: 20px;"shape="round" color = "secondary" (click) = "btnOnClick();" > Submit</ion-button>
     
 </ion-content>
