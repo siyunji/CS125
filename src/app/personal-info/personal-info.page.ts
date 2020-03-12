@@ -37,7 +37,7 @@ export class PersonalInfoPage implements OnInit {
   ngOnInit() {}
 
   public submitBtnOnClick() {
-    let userInfo = Object();
+    let userInfo = new Object();
     userInfo["height"] = this.h;
     userInfo["weight"] = this.w;
     userInfo["age"] = this.a;

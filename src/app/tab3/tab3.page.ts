@@ -15,13 +15,19 @@ export class Tab3Page {
   private age: any;
   private gender: any;
   private experience: any;
+
   constructor(private globalDB: Storage) {
-    globalDB.get("UserInfo").then(userInfo => {
-      this.weight = userInfo["weight"];
-      this.height = userInfo["height"];
-      this.age = userInfo["age"];
-      this.gender = userInfo["gender"];
-      this.experience = userInfo["experience"];
+    let self = this;
+    this.globalDB.get("UserInfo").then(userInfo => {
+      self.weight = userInfo["weight"];
+      self.height = userInfo["height"];
+      self.age = userInfo["age"];
+      self.gender = userInfo["gender"];
+      self.experience = userInfo["experience"];
     });
+  }
+
+  ngOnInit() {
+   
   }
 }
