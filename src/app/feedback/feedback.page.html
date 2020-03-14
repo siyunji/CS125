@@ -15,6 +15,10 @@
         <ion-item color="secondary" *ngFor="let loc of text" text-center>
           <p text-center>{{ loc }}</p>
         </ion-item>
+          <p text-center color="seconday">We recommend you to eat:</p>
+        <ion-item color="secondary" *ngFor="let f of food" text-center>
+          <p text-center>{{ f["_name"] }}</p>
+        </ion-item>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content> </ion-card-content>

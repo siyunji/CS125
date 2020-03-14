@@ -35,8 +35,8 @@ export class PersonalInfoPage implements OnInit {
   }
 
   ngOnInit() {}
-
-  public submitBtnOnClick() {
+  
+  public async submitBtnOnClick() {
     let userInfo = new Object();
     userInfo["height"] = this.h;
     userInfo["weight"] = this.w;
@@ -44,9 +44,8 @@ export class PersonalInfoPage implements OnInit {
     userInfo["gender"] = this.g;
     userInfo["experience"] = this.e;
 
-    this.globalDB.set("UserInfo", userInfo);
-
-    this.globalDB.set("FirstTimeUse", false);
+    await this.globalDB.set("UserInfo", userInfo);
+    await this.globalDB.set("FirstTimeUse", false);
     this.navCtrl.navigateForward(["tabs"]);
   }
 }

@@ -1,5 +1,6 @@
 import { Location } from "./location";
 import { Exercise } from "./exercise";
+import { Food } from "./food";
 
 import { LocationReader } from "./sensors/gps";
 import { DirectionReader } from "./sensors/directions";
@@ -27,12 +28,14 @@ export class Recommendation {
   ) {}
 
   // {Exercise name: array of locations}
-  public async recommend(questionMap: Object): Promise<Object[]> {
+  public async recommend(questionMap: Object): Promise<[Object[], Food[]]> {
     let usr = await this.globalDB.get("UserInfo");
     let exercises_db = await this.globalDB.get("ExerciseDB");
     let exercises: Exercise[] = Object.values(exercises_db);
     let locations_db = await this.globalDB.get("LocationDB");
     let locations: Location[] = Object.values(locations_db);
+    let food_db = await this.globalDB.get("FoodDB");
+    let foods: Food[] = Object.values(food_db);
 
     let weather = "Shower"; // await this.weatherReader.getWeather();
     console.log(weather);
@@ -68,6 +71,16 @@ export class Recommendation {
 
     console.log(locations);
 
+    let totalCal = dailyConsCal + this.getCalConsByExe(
+      usr["weight"],
+      questionMap["exerciseType"],
+      questionMap["exerciseTime"]
+    );
+
+    foods = this.foodFilter(totalCal, foods);
+    // console.log("foods");
+    // console.log(foods);
+
     for (let e of exercises.slice(0, 5)) {
       let o = new Object();
 
@@ -78,15 +91,7 @@ export class Recommendation {
       res.push(o);
     }
 
-    return res;
-
-    /*
-    let calConsByExe = this.getCalConsByExe(
-      usr["weight"],
-      questionMap["exerciseType"],
-      questionMap["exerciseTime"]
-    );
-*/
+    return [res, foods];
   }
 
   public changeWeight(options: string[], chosen: string): void {
@@ -295,7 +300,25 @@ export class Recommendation {
     return (userInfo["weight"] / 2000) * step;
   }
 */
-  private foodFilter(cal: number): [] {
-    return []; // ..
+  private foodFilter(cal: number, food: Food[]): Food[] {
+    let randNum: number = this.getRandNum(0, food.length);
+    console.log("cal");
+    console.log(cal);
+    console.log("randNum");
+    console.log(randNum);
+    let f = food[randNum];
+    let res: Food[] = [];
+    cal -= (f as any)._calories;
+    while (cal > 0) {
+      res.push(f);
+      randNum = this.getRandNum(0, food.length);
+      f = food[randNum];
+      cal -=  (f as any)._calories;
+    }
+    return res;
+  }
+
+  private getRandNum(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }

@@ -9,10 +9,16 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class FeedbackPage implements OnInit {
   text: string[];
+  food: string[];
   constructor(private navCtrl: NavController, private route: ActivatedRoute) {
     this.text = [];
+    this.food = [];
     this.route.params.subscribe((params: any) => {
       let recom = JSON.parse(params[0]);
+      this.food = JSON.parse(params[1]);
+      
+      console.log("feedback food");
+      console.log(this.food);
       this.text.push(Object.keys(recom)[0]);
 
       this.text.push("\nYou can do it at:\n");

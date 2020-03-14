@@ -42,8 +42,9 @@ export class Database {
     let objDict = new Object();
     Object.keys(db).forEach(key => {
       let e = db[key];
-      objDict[key] = new Food(key, e["default"]);
+      objDict[key] = new Food(key, e);
     });
+    this.globalDB.set("FoodDB", objDict);
   }
 
   private initLocationDB() {

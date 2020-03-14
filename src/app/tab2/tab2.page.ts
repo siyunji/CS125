@@ -91,7 +91,7 @@ export class Tab2Page {
 
   btnOnClick() {
     this.recommendation.recommend(this.questionMap).then(exerciseOptions => {
-      this.router.navigate(["food-select", [JSON.stringify(exerciseOptions)]]);
+      this.router.navigate(["food-select", [JSON.stringify(exerciseOptions[0]), JSON.stringify(exerciseOptions[1])]]);
     });
   }
 }
