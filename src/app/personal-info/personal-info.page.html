@@ -8,8 +8,8 @@
         text-right
      
         [(ngModel)]="h"
-        type="number"
-        pattern="[0-9]+"
+        type="text" pattern="[0-9]*" decimal="true"
+        
         decimal="true"
         allow-multiple-decimals="true"
         minlength="0"
@@ -25,9 +25,7 @@
         text-right
     
         [(ngModel)]="w"
-        type="number"
-        pattern="[0-9]+"
-        decimal="true"
+        type="text" pattern="[0-9]*" decimal="true"
         allow-multiple-decimals="true"
         minlength="0"
         maxlength="10"
@@ -42,9 +40,7 @@
         text-right
   
         [(ngModel)]="a"
-        type="number"
-        pattern="[0-9]+"
-        decimal="true"
+        type="text" pattern="[0-9]*" decimal="true"
         allow-multiple-decimals="true"
         minlength="0"
         maxlength="10"

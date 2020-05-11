@@ -14,11 +14,11 @@ export class HomepagePage implements OnInit {
 
   start() {
     this.globalDB.get("FirstTimeUse").then(ftu => {
-      if (ftu === false) {
-        this.router.navigate(["tabs"]);
-      } else {
+     // if (ftu === false) {
+       // this.router.navigate(["tabs"]);
+      //} else {
         this.router.navigate(["personal-info"]);
-      }
+      //}
     });
   }
 }
